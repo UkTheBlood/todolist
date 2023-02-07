@@ -6,8 +6,8 @@ function App() {
   const [todo, setTodo] = useState([
     { id: 1, title: "리액트 공부하기", contents: "리액트 기초 공부", done: false },
     { id: 2, title: "리액트 공부합시다", contents: "노션 보기", done: false },
-    { id: 3, title: "리액트 공부하기", contents: "리액트 기초 공부", done: false },
-  ])
+    { id: 3, title: "리액트 공부하기", contents: "리액트 기초 공부", done: true },
+  ]);
 
   const [title, setTitle] = useState('')
   const [contents, setContents] = useState('')
@@ -30,7 +30,6 @@ function App() {
       done: false,
     }
 
-    // 
     setTodo([...todo, newTodo]);
 
     // 작성 후 input 안에 있는 값 초기화
@@ -40,11 +39,29 @@ function App() {
 
   // 삭제 버튼
   const clickRomoveButton = (id) => {
-    const newTodo = todo.filter(function(todo) {
+    const newTodo = todo.filter(function (todo) {
       return todo.id !== id
     });
     setTodo(newTodo)
   }
+
+  // 완료 버튼
+  const isDoneButton = (id) => {
+    setTodo((x) => {
+      x.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo))
+    })
+  }
+
+
+
+
+  // const isDoneButton = (id) => {
+  //   setUsers((el) =>
+  //     el.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo))
+  //   );
+  // };
+
+
 
   return (
     <div>
@@ -55,23 +72,23 @@ function App() {
         <input
           value={title}
           onChange={titleChangeHandler}
-        >
+        />
 
-        </input>
         내용 <input
           value={contents}
           onChange={contentsChangeHandler}
-        >
-        </input>
+        />
         <button onClick={clickAddbutton}>추가하기!</button>
       </div>
 
 
-      {/* Done */}
+      {/* Working... */}
       <div>
         <h1>Working...</h1>
         {
-          todo.map(item => {
+          todo.filter(function (work) {
+            return work.done === false
+          }).map(item => {
             return (
               <div key={item.id} className="">
                 <h3>{item.title}</h3>
@@ -79,14 +96,33 @@ function App() {
 
                 <button onClick={() => clickRomoveButton(item.id)}>삭제하기!</button>
 
-                <button>완료!</button>
+                <button onClick={() => isDoneButton(item.id)}>완료!</button>
               </div>
             )
           })
         }
       </div>
+
+
+      {/* Done! */}
       <div>
-        <h3>Done!</h3>
+        <h1>Done!</h1>
+        {
+          todo.filter(function (work) {
+            return work.done === true
+          }).map(item => {
+            return (
+              <div key={item.id} className="">
+                <h3>{item.title}</h3>
+                <p>{item.contents}</p>
+
+                <button onClick={() => clickRomoveButton(item.id)}>삭제하기!</button>
+
+                <button>취소</button>
+              </div>
+            )
+          })
+        }
       </div>
     </div>
   );
