@@ -47,15 +47,20 @@ function App() {
 
   // 완료 버튼
   const isDoneButton = (id) => {
-    setTodo((x) => {
+    setTodo((x) =>
       x.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo))
-    })
-  }
+    );
+  };
+
+  // 취소 버튼
+  const clickCancelButton = (id) => {
+    setTodo((x) =>
+      x.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo))
+    );
+  };
 
 
-
-
-  // const isDoneButton = (id) => {
+  // const ModifyClick = (id: number) => {
   //   setUsers((el) =>
   //     el.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo))
   //   );
@@ -118,7 +123,7 @@ function App() {
 
                 <button onClick={() => clickRomoveButton(item.id)}>삭제하기!</button>
 
-                <button>취소</button>
+                <button onClick={() => clickCancelButton(item.id)}>취소</button>
               </div>
             )
           })
