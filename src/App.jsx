@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import './App.css';
+import DoneSection from "./components/DoneSection";
+import WorkingSection from "./components/WorkingSection";
 
 function App() {
   // 초기값과 setTodo 만들기
   const [todo, setTodo] = useState([
     { id: 1, title: "리액트 공부하기", contents: "리액트 기초 공부", done: false },
     { id: 2, title: "리액트 공부합시다", contents: "노션 보기", done: false },
-    { id: 3, title: "리액트 공부하기", contents: "리액트 기초 공부", done: true },
+    { id: 3, title: "리액트 공부하기", contents: "끝났다", done: true },
   ]);
 
   const [title, setTitle] = useState('')
@@ -59,19 +61,10 @@ function App() {
     );
   };
 
-
-  // const ModifyClick = (id: number) => {
-  //   setUsers((el) =>
-  //     el.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo))
-  //   );
-  // };
-
-
-
   return (
-    <div>
+    <div className="wrapper">
       <h1>My Todo List</h1>
-      <div>
+      <div className="title">
         {/* input 태그들 */}
         제목
         <input
@@ -83,8 +76,9 @@ function App() {
           value={contents}
           onChange={contentsChangeHandler}
         />
-        <button onClick={clickAddbutton}>추가하기!</button>
+        <button className="add-button" onClick={clickAddbutton}>추가하기!</button>
       </div>
+
 
 
       {/* Working... */}
@@ -95,14 +89,12 @@ function App() {
             return work.done === false
           }).map(item => {
             return (
-              <div key={item.id} className="">
-                <h3>{item.title}</h3>
-                <p>{item.contents}</p>
-
-                <button onClick={() => clickRomoveButton(item.id)}>삭제하기!</button>
-
-                <button onClick={() => isDoneButton(item.id)}>완료!</button>
-              </div>
+              <WorkingSection
+                key={item.id}
+                item={item}
+                clickRomoveButton={clickRomoveButton}
+                isDoneButton={isDoneButton}
+              />
             )
           })
         }
@@ -117,14 +109,12 @@ function App() {
             return work.done === true
           }).map(item => {
             return (
-              <div key={item.id} className="">
-                <h3>{item.title}</h3>
-                <p>{item.contents}</p>
-
-                <button onClick={() => clickRomoveButton(item.id)}>삭제하기!</button>
-
-                <button onClick={() => clickCancelButton(item.id)}>취소</button>
-              </div>
+              <DoneSection
+                key={item.id}
+                item={item}
+                clickRomoveButton={clickRomoveButton}
+                clickCancelButton={clickCancelButton}
+              />
             )
           })
         }
@@ -132,5 +122,9 @@ function App() {
     </div>
   );
 }
+
+
+
+
 
 export default App;
