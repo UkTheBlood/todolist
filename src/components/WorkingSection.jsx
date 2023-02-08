@@ -11,4 +11,4 @@ const WorkingSection = ({ item, clickRomoveButton, isDoneButton }) => {
     )
 }
 
-export default WorkingSection
+export default WorkingSection;

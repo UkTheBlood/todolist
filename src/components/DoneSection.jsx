@@ -11,4 +11,4 @@ const DoneSection = ({ item, clickRomoveButton, clickCancelButton }) => {
     )
 }
 
-export default DoneSection
+export default DoneSection;

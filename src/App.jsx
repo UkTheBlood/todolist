@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import './App.css';
-import DoneSection from "./components/DoneSection";
-import WorkingSection from "./components/WorkingSection";
+import TodoList from "./components/TodoList";
 
 function App() {
   // 초기값과 setTodo 만들기
@@ -60,7 +59,7 @@ function App() {
       x.map((todo) => (todo.id === id ? { ...todo, done: !todo.done } : todo))
     );
   };
-
+  
   return (
     <div className="wrapper">
       <h1>My Todo List</h1>
@@ -70,61 +69,23 @@ function App() {
         <input
           value={title}
           onChange={titleChangeHandler}
+          required
         />
-
         내용 <input
           value={contents}
           onChange={contentsChangeHandler}
+          required
         />
         <button className="add-button" onClick={clickAddbutton}>추가하기!</button>
       </div>
-
-
-
-      {/* Working... */}
-      <div>
-        <h1>Working...</h1>
-        {
-          todo.filter(function (work) {
-            return work.done === false
-          }).map(item => {
-            return (
-              <WorkingSection
-                key={item.id}
-                item={item}
-                clickRomoveButton={clickRomoveButton}
-                isDoneButton={isDoneButton}
-              />
-            )
-          })
-        }
-      </div>
-
-
-      {/* Done! */}
-      <div>
-        <h1>Done!</h1>
-        {
-          todo.filter(function (work) {
-            return work.done === true
-          }).map(item => {
-            return (
-              <DoneSection
-                key={item.id}
-                item={item}
-                clickRomoveButton={clickRomoveButton}
-                clickCancelButton={clickCancelButton}
-              />
-            )
-          })
-        }
-      </div>
+      <TodoList
+        clickRomoveButton={clickRomoveButton}
+        isDoneButton={isDoneButton}
+        todo={todo}
+        clickCancelButton={clickCancelButton}
+      />
     </div>
   );
 }
-
-
-
-
 
 export default App;
